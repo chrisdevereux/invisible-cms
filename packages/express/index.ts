@@ -20,6 +20,13 @@ export const createCms = ({ backend, target }: CreateCmsProps) => {
   app.get('/revision/:id', handleErrors(async (req, res) => {
     res.send(await backend.getRevision(req.params.id))
   }))
+  app.put('/revision/:id', handleErrors(async (req, res) => {
+    const props: CmsRevisionProps = req.body
+    const revision = { ...props, id: req.params.id, timestamp: Date.now() }
+    await backend.putRevision(revision)
+
+    res.send(revision)
+  }))
   app.post('/revision', handleErrors(async (req, res) => {
     const props: CmsRevisionProps = req.body
 

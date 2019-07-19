@@ -57,12 +57,30 @@ const CmsController = ({ token, endpoint, children }) => {
     return null
   }
 
+  const save = async () => {
+    if (revision.value) {
+      console.log('yeah')
+      await client.putRevision(revision.value.id, contentItem.toRevision())
+
+    } else {
+      revision.value = await client.createRevision(contentItem.toRevision())
+    }
+
+    return revision.value
+  }
+
   return (
     <ContentItemContext.Provider value={contentItem}>
-      <GlobalUi revision={revision.value} onPublish={async () =>{
-        const revision = await client.createRevision(contentItem.toRevision())
-        await client.publishRevision(revision.id)
-      }} />
+      <GlobalUi
+        revision={revision.value}
+        onPublish={async () =>{
+          revision.value = await save()
+          await client.publishRevision(revision.value.id)
+
+          revision.value = await client.createRevision(contentItem.toRevision())
+        }}
+        onSave={save}
+      />
       {children}
     </ContentItemContext.Provider>
   )

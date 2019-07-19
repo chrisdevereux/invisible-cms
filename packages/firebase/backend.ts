@@ -31,6 +31,10 @@ export class FirebaseCmsBackend implements CmsBackend {
     }
   }
 
+  async putRevision({ id, ...data }: CmsRevision): Promise<void> {
+    await this.db.collection('revision').doc(id).update(data)
+  }
+
   async setPublishedRevision(id: string) {
     await this.db.collection('publish').add({ revisionId: id, timestamp: Date.now() })
   }

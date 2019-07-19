@@ -12,6 +12,10 @@ export class Client {
     return this.request('GET', '/revision/' + id)
   }
 
+  putRevision(id: string, body: CmsRevisionProps): Promise<CmsRevision | undefined> {
+    return this.request('PUT', '/revision/' + id, body)
+  }
+
   getPublishedRevision(): Promise<CmsRevision | undefined> {
     return this.request('GET', '/current-content')
   }

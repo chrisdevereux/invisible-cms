@@ -13,6 +13,7 @@ export interface CmsBackend {
   // listRevisions(): Promise<CmsRevision>
   getRevision(id?: string): Promise<CmsRevision>
   createRevision(revision: Omit<CmsRevision, 'id'>): Promise<CmsRevision>
+  putRevision(revision: CmsRevision): Promise<void>
   setPublishedRevision(id: string): Promise<void>
   getPublishedRevisionId(): Promise<string>
 }
