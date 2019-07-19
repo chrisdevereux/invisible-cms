@@ -1,0 +1,11 @@
+{
+  "name": "@invisiblecms/netlify",
+  "version": "0.1.0",
+  "dependencies": {
+    "@invisiblecms/core": "0.1.0",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.3.7"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "gatsby-plugin-invisiblecms",
+  "version": "0.1.0",
+  "dependencies": {
+    "@invisiblecms/react": "0.1.0"
+  }
+}

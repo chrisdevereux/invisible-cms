@@ -1,0 +1,11 @@
+{
+  "name": "@invisiblecms/core",
+  "version": "0.1.0",
+  "peerDependencies": {
+    "react": "^16.8.6"
+  },
+  "devDependencies": {
+    "@types/react": "^16.8.23",
+    "react": "^16.8.6"
+  }
+}
