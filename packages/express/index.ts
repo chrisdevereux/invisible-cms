@@ -39,7 +39,7 @@ export const createCms = ({ backend, target }: CreateCmsProps) => {
 
     res.sendStatus(204)
   }))
-  app.get('/current-content', handleErrors(async (req, res) => {
+  app.get('/data', handleErrors(async (req, res) => {
     const revisionId = await backend.getPublishedRevisionId()
     const revision = await backend.getRevision(revisionId)
 

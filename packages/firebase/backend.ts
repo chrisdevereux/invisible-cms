@@ -40,7 +40,7 @@ export class FirebaseCmsBackend implements CmsBackend {
   }
 
   async getPublishedRevisionId(): Promise<string> {
-    const querySnapshot = await this.db.collection('publish').orderBy('timestamp').limit(1).get()
+    const querySnapshot = await this.db.collection('publish').orderBy('timestamp', 'desc').limit(1).get()
     const mostRecent = first(querySnapshot.docs)
 
     return mostRecent.data().revisionId

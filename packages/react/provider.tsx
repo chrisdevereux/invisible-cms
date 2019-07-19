@@ -4,6 +4,7 @@ import { ContentItemContext, ContentItem } from "./content-item";
 import { Client } from "./client";
 import { useAsync } from "./use-async";
 import { GlobalUi } from './global-ui'
+import { ConfigContext } from "./config";
 
 export const CmsAdmin = ({ authProvider, endpoint, children }) => {
   const [authState, setAuthState] = useState()
@@ -25,9 +26,11 @@ export const CmsAdmin = ({ authProvider, endpoint, children }) => {
   }
 
   return (
-    <CmsController token={authState.token} endpoint={endpoint}>
-      {children}
-    </CmsController>
+    <ConfigContext.Provider value={{ editable: true }}>
+      <CmsController token={authState.token} endpoint={endpoint}>
+        {children}
+      </CmsController>
+    </ConfigContext.Provider>
   )
 }
 

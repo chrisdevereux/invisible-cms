@@ -4,7 +4,8 @@
   "version": "0.1.0",
   "scripts": {
     "edit": "CMS_ADMIN=true dotenv gatsby develop",
-    "start": "dotenv gatsby develop",
+    "develop": "dotenv gatsby develop",
+    "build": "dotenv gatsby build",
     "backend": "dotenv nodemon"
   },
   "dependencies": {

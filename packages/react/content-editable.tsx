@@ -1,6 +1,7 @@
 import React, { createContext, useContext, createElement, Children, useState } from "react";
 import ReactEditable from 'react-contenteditable'
 import { useContent } from "./content-item";
+import { ConfigContext } from "./config";
 
 const EditContext = createContext(undefined)
 
@@ -22,9 +23,16 @@ export const Editable = ({ id, initialValue, children, editable = true, contentM
 }
 
 export const Content = ({ tagName = 'div', ...props }) => {
+  const { editable } = useContext(ConfigContext)
   const editContext = useContext(EditContext)
+
   if (!editContext) {
     return createElement(tagName, props)
+  }
+
+  if (!editable) {
+    const innerHtml = { __html: editContext.value }
+    return createElement(tagName, { ...props, dangerouslySetInnerHTML: innerHtml })
   }
 
   return (

@@ -17,7 +17,7 @@ export class Client {
   }
 
   getPublishedRevision(): Promise<CmsRevision | undefined> {
-    return this.request('GET', '/current-content')
+    return this.request('GET', '/data')
   }
 
   createRevision(revision: CmsRevisionProps): Promise<CmsRevision> {
