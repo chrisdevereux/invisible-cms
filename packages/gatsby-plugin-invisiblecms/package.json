@@ -1,5 +1,8 @@
 {
-  "name": "gatsby-plugin-invisible-cms",
+  "name": "gatsby-source-invisible-cms",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.1.0",
   "dependencies": {
     "@invisible-cms/react": "0.1.0"

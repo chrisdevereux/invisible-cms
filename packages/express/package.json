@@ -1,5 +1,8 @@
 {
   "name": "@invisible-cms/express",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.1.0",
   "dependencies": {
     "body-parser": "^1.19.0",

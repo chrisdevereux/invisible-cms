@@ -1,5 +1,8 @@
 {
   "name": "@invisible-cms/react",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.1.0",
   "dependencies": {
     "@invisible-cms/core": "0.1.0",

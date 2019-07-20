@@ -3,6 +3,7 @@ node_modules
 .build
 /packages/**/*.js
 /packages/**/*.d.ts*
+/packages/**/*.mjs
 *.log
 .cache
 public
