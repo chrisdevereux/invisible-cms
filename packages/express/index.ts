@@ -4,42 +4,43 @@ import { json } from 'body-parser'
 import { CmsBackend, CmsDeployTarget, CmsRevisionProps } from '@invisible-cms/core';
 
 interface CreateCmsProps {
+  prefix?: string
   backend: CmsBackend,
   target: CmsDeployTarget
 }
 
-export const createCms = ({ backend, target }: CreateCmsProps) => {
+export const createCms = ({ prefix = '', backend, target }: CreateCmsProps) => {
   const app = express()
 
   app.use(cors({ origin: true }))
   app.use(json())
 
-  app.get('/revision/latest', handleErrors(async (req, res) => {
+  app.get(prefix + '/revision/latest', handleErrors(async (req, res) => {
     res.send(await backend.getRevision())
   }))
-  app.get('/revision/:id', handleErrors(async (req, res) => {
+  app.get(prefix + '/revision/:id', handleErrors(async (req, res) => {
     res.send(await backend.getRevision(req.params.id))
   }))
-  app.put('/revision/:id', handleErrors(async (req, res) => {
+  app.put(prefix + '/revision/:id', handleErrors(async (req, res) => {
     const props: CmsRevisionProps = req.body
     const revision = { ...props, id: req.params.id, timestamp: Date.now() }
     await backend.putRevision(revision)
 
     res.send(revision)
   }))
-  app.post('/revision', handleErrors(async (req, res) => {
+  app.post(prefix + '/revision', handleErrors(async (req, res) => {
     const props: CmsRevisionProps = req.body
 
     res.send(await backend.createRevision({ ...props, timestamp: Date.now() }))
   }))
-  app.post('/revision/:id/publish', handleErrors(async (req, res) => {
+  app.post(prefix + '/revision/:id/publish', handleErrors(async (req, res) => {
     const revision = await backend.getRevision(req.params.id)
     await backend.setPublishedRevision(revision.id)
     await target.publish()
 
     res.sendStatus(204)
   }))
-  app.get('/data', handleErrors(async (req, res) => {
+  app.get(prefix + '/data', handleErrors(async (req, res) => {
     const revisionId = await backend.getPublishedRevisionId()
     const revision = await backend.getRevision(revisionId)
 
