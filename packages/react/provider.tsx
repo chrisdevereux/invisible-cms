@@ -1,10 +1,10 @@
 import { useEffect, useState, useMemo } from "react";
 import React from "react";
-import { ContentItemContext, ContentItem } from "./content-item";
 import { Client } from "./client";
 import { useAsync } from "./use-async";
 import { GlobalUi } from './global-ui'
 import { ConfigContext } from "./config";
+import { ProvideContent } from "./content";
 
 export const CmsAdmin = ({ authProvider, endpoint, children }) => {
   const [authState, setAuthState] = useState()
@@ -35,56 +35,46 @@ export const CmsAdmin = ({ authProvider, endpoint, children }) => {
 }
 
 export const CmsDisplay = ({ children, data }) => (
-  <ContentItemContext.Provider value={new ContentItem(data)}>
+  <ProvideContent value={data} editable={false}>
     {children}
-  </ContentItemContext.Provider>
+  </ProvideContent>
 )
 
 const CmsController = ({ token, endpoint, children }) => {
   const client = useMemo(() => new Client(endpoint, token), [endpoint, token])
   const revision = useAsync(() => client.getRevision(), [client])
-  const contentItem = useMemo(() => {
-    if (!revision) {
-      return undefined
-    }
+  const [editValue, setEditValue] = useState()
 
-    if (revision.value) {
-      return ContentItem.fromRevision(revision.value)
-    } else {
-      return new ContentItem()
-    }
-
-  }, [revision])
-
-  if (!contentItem) {
+  if (!revision) {
     return null
   }
 
   const save = async () => {
     if (revision.value) {
-      console.log('yeah')
-      await client.putRevision(revision.value.id, contentItem.toRevision())
+      const nextRevision = { ...revision.value, content: editValue }
+      await client.putRevision(revision.value.id, nextRevision)
+      revision.value = nextRevision
 
     } else {
-      revision.value = await client.createRevision(contentItem.toRevision())
+      revision.value = await client.createRevision({ content: editValue })
     }
 
-    return revision.value
+    setEditValue(undefined)
   }
 
   return (
-    <ContentItemContext.Provider value={contentItem}>
+    <ProvideContent editable value={editValue || revision.value.content} onChange={setEditValue}>
       <GlobalUi
         revision={revision.value}
         onPublish={async () =>{
-          revision.value = await save()
+          await save()
           await client.publishRevision(revision.value.id)
 
-          revision.value = await client.createRevision(contentItem.toRevision())
+          revision.value = await client.createRevision(revision.value.content)
         }}
         onSave={save}
       />
       {children}
-    </ContentItemContext.Provider>
+    </ProvideContent>
   )
 }

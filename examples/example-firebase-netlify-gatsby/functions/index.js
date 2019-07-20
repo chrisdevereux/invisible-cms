@@ -24,4 +24,5 @@ const cmsService = createCms({
   target: new NetlifyCmsDeployTarget(configString('NETLIFY_DEPLOY_HOOK'))
 })
 
-module.exports.cms = functions.https.onRequest(cmsService)
+exports.cms = functions.https.onRequest(cmsService)
+exports.cms.middleware = cmsService
