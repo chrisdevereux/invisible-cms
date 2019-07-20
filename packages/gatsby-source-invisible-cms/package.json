@@ -3,8 +3,8 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.2",
+  "version": "0.0.3",
   "dependencies": {
-    "@invisible-cms/react": "^0.0.2"
+    "@invisible-cms/react": "^0.0.3"
   }
 }

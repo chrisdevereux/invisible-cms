@@ -1,7 +1,7 @@
 {
   "name": "@invisible-cms/example-firebase-netlify-gatsby",
   "private": true,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "edit": "CMS_ADMIN=true dotenv gatsby develop",
     "develop": "dotenv gatsby develop",
@@ -9,16 +9,16 @@
     "backend": "dotenv nodemon"
   },
   "dependencies": {
-    "@invisible-cms/express": "^0.0.2",
-    "@invisible-cms/firebase": "^0.0.2",
-    "@invisible-cms/netlify": "^0.0.2",
-    "@invisible-cms/react": "^0.0.2",
+    "@invisible-cms/express": "^0.0.3",
+    "@invisible-cms/firebase": "^0.0.3",
+    "@invisible-cms/netlify": "^0.0.3",
+    "@invisible-cms/react": "^0.0.3",
     "firebase-admin": "^8.2.0",
     "gatsby": "^2.3.31",
     "gatsby-link": "^2.0.16",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "gatsby-plugin-typescript": "^2.0.13",
-    "gatsby-source-invisible-cms": "^0.0.2",
+    "gatsby-source-invisible-cms": "^0.0.3",
     "serverless-http": "^2.0.2"
   },
   "devDependencies": {
