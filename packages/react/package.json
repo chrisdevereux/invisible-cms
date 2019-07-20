@@ -3,9 +3,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.5",
+  "version": "0.0.6",
   "dependencies": {
-    "@invisible-cms/core": "^0.0.5",
+    "@invisible-cms/core": "^0.0.6",
     "isomorphic-fetch": "^2.2.1",
     "react-contenteditable": "^3.2.6"
   },
