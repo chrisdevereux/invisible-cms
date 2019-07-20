@@ -3,9 +3,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.6",
+  "version": "0.0.7",
   "dependencies": {
-    "@invisible-cms/react": "^0.0.6"
+    "@invisible-cms/react": "^0.0.7"
   },
   "files": [
     "*.js",

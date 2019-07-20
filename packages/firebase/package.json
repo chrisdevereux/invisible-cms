@@ -3,9 +3,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.6",
+  "version": "0.0.7",
   "dependencies": {
-    "@invisible-cms/core": "^0.0.6",
+    "@invisible-cms/core": "^0.0.7",
     "firebase-admin": "^8.2.0",
     "firebase-tools": "^7.1.1",
     "react-firebaseui": "^3.1.2"
