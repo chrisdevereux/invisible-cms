@@ -1,0 +1,6 @@
+.cache
+.netlify
+public
+node_modules
+.env
+*.log

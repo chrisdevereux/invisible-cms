@@ -1,8 +1,3 @@
 [build]
   publish = "public"
   command = "yarn build"
-  functions = "functions"
-
-[dev]
-  command = "yarn develop"
-  port = 8000
