@@ -3,11 +3,11 @@ const firebase = require('firebase')
 module.exports = {
   plugins: [
     {
-      resolve: 'gatsby-plugin-invisiblecms',
+      resolve: 'gatsby-plugin-invisible-cms',
       options: {
         admin: JSON.parse(process.env.CMS_ADMIN || 'false'),
         endpoint: process.env.CMS_ENDPOINT,
-        auth: '@invisiblecms/firebase/auth',
+        auth: '@invisible-cms/firebase/auth',
         signInOptions: [
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,
           firebase.auth.EmailAuthProvider.PROVIDER_ID,

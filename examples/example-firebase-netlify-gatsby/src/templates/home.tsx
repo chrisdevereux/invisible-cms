@@ -1,4 +1,4 @@
-import { Content, Editable } from '@invisiblecms/react'
+import { Content, Editable } from '@invisible-cms/react'
 import React from 'react';
 
 const Home = () => (

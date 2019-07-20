@@ -1,4 +1,4 @@
-import { CmsBackend, CmsRevision } from "@invisiblecms/core";
+import { CmsBackend, CmsRevision } from "@invisible-cms/core";
 import { firestore } from 'firebase-admin'
 
 export class FirebaseCmsBackend implements CmsBackend {

@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { json } from 'body-parser'
-import { CmsBackend, CmsDeployTarget, CmsRevisionProps } from '@invisiblecms/core';
+import { CmsBackend, CmsDeployTarget, CmsRevisionProps } from '@invisible-cms/core';
 
 interface CreateCmsProps {
   backend: CmsBackend,

@@ -1,4 +1,4 @@
-import { CmsAuthProvider } from '@invisiblecms/core'
+import { CmsAuthProvider } from '@invisible-cms/core'
 import React from 'react';
 import * as firebase from 'firebase'
 import * as firebaseui from 'firebaseui';

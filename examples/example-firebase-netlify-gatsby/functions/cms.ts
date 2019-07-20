@@ -1,7 +1,7 @@
 import serverless from 'serverless-http'
-import { createCms } from '@invisiblecms/express'
-import { FirebaseCmsBackend } from '@invisiblecms/firebase'
-import { NetlifyCmsDeployTarget } from '@invisiblecms/netlify'
+import { createCms } from '@invisible-cms/express'
+import { FirebaseCmsBackend } from '@invisible-cms/firebase'
+import { NetlifyCmsDeployTarget } from '@invisible-cms/netlify'
 import { initializeApp, credential } from 'firebase-admin'
 
 initializeApp({

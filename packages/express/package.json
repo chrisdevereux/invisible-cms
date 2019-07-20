@@ -1,5 +1,5 @@
 {
-  "name": "@invisiblecms/express",
+  "name": "@invisible-cms/express",
   "version": "0.1.0",
   "dependencies": {
     "body-parser": "^1.19.0",

@@ -1,4 +1,4 @@
-import {  CmsRevision, CmsRevisionProps } from "@invisiblecms/core"
+import {  CmsRevision, CmsRevisionProps } from "@invisible-cms/core"
 import fetch from 'isomorphic-fetch'
 
 export class Client {

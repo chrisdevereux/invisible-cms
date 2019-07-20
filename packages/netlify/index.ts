@@ -1,5 +1,5 @@
 import fetch from 'node-fetch'
-import { CmsDeployTarget } from '@invisiblecms/core';
+import { CmsDeployTarget } from '@invisible-cms/core';
 
 export class NetlifyCmsDeployTarget implements CmsDeployTarget {
   constructor(

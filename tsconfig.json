@@ -58,6 +58,6 @@
   },
   "include": [
     "packages/**/*.ts",
-    "packages/**/*.tsx", "packages/gatsby-plugin-invisiblecms/index.js"
+    "packages/**/*.tsx", "packages/gatsby-plugin-invisible-cms/index.js"
   ]
 }

@@ -1,8 +1,8 @@
 {
-  "name": "@invisiblecms/react",
+  "name": "@invisible-cms/react",
   "version": "0.1.0",
   "dependencies": {
-    "@invisiblecms/core": "0.1.0",
+    "@invisible-cms/core": "0.1.0",
     "isomorphic-fetch": "^2.2.1"
   },
   "devDependencies": {

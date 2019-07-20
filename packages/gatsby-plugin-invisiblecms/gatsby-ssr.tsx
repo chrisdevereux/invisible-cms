@@ -1,6 +1,4 @@
-/* eslint-disable */
-
-import { CmsDisplay } from "@invisiblecms/react";
+import { CmsDisplay } from "@invisible-cms/react";
 import React from "react";
 
 export const wrapPageElement = ({ element, props }) => {

@@ -1,4 +1,4 @@
-import { Client } from '@invisiblecms/react'
+import { Client } from '@invisible-cms/react'
 import * as path from 'path'
 
 interface GatsbyNode {
@@ -53,7 +53,7 @@ export const onCreateWebpackConfig = ({ actions, plugins }) => {
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
-        INVISIBLECMS_AUTH_PROVIDER_PATH: JSON.stringify(authProviderPath),
+        INVISIBLE_CMS_AUTH_PROVIDER_PATH: JSON.stringify(authProviderPath),
       }),
     ],
   })

@@ -1,8 +1,8 @@
 {
-  "name": "@invisiblecms/netlify",
+  "name": "@invisible-cms/netlify",
   "version": "0.1.0",
   "dependencies": {
-    "@invisiblecms/core": "0.1.0",
+    "@invisible-cms/core": "0.1.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {

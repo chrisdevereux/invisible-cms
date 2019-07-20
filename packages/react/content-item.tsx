@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import { useCollectionValue, Collection } from './collection'
-import { CmsRevisionProps } from "@invisiblecms/core";
+import { CmsRevisionProps } from "@invisible-cms/core";
 
 export const ContentItemContext = createContext(undefined)
 

@@ -1,5 +1,5 @@
 {
-  "name": "@invisiblecms/core",
+  "name": "@invisible-cms/core",
   "version": "0.1.0",
   "peerDependencies": {
     "react": "^16.8.6"
