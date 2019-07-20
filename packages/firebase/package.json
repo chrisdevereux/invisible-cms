@@ -12,5 +12,8 @@
   },
   "devDependencies": {
     "firebase": "^6.3.1"
-  }
+  },
+  "files": [
+   "*.js", "*.mjs", ".d.ts", "*.map"
+  ]
 }

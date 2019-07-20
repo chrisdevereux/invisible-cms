@@ -10,5 +10,8 @@
   "devDependencies": {
     "@types/react": "^16.8.23",
     "react": "^16.8.6"
-  }
+  },
+  "files": [
+   "*.js", "*.mjs", ".d.ts", "*.map"
+  ]
 }

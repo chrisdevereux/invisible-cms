@@ -13,5 +13,8 @@
     "@types/body-parser": "^1.17.0",
     "@types/cors": "^2.8.5",
     "@types/express": "^4.17.0"
-  }
+  },
+  "files": [
+   "*.js", "*.mjs", ".d.ts", "*.map"
+  ]
 }

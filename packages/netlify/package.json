@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "@types/node-fetch": "^2.3.7"
-  }
+  },
+  "files": [
+   "*.js", "*.mjs", ".d.ts", "*.map"
+  ]
 }

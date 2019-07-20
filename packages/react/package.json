@@ -10,5 +10,8 @@
   },
   "devDependencies": {
     "@types/isomorphic-fetch": "^0.0.35"
-  }
+  },
+  "files": [
+   "*.js", "*.mjs", ".d.ts", "*.map"
+  ]
 }
