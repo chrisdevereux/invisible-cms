@@ -1,5 +1,5 @@
 import { Content, Editable } from '@invisible-cms/react'
-import React from 'react';
+import * as React from 'react';
 
 const Home = () => (
   <Editable id="name" initialValue="NAME">

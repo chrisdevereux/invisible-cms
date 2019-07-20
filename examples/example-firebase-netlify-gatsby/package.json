@@ -13,6 +13,7 @@
     "@invisible-cms/firebase": "^0.0.6",
     "@invisible-cms/netlify": "^0.0.6",
     "@invisible-cms/react": "^0.0.6",
+    "firebase": "^6.3.1",
     "firebase-admin": "^8.2.0",
     "gatsby": "^2.3.31",
     "gatsby-link": "^2.0.16",
@@ -28,18 +29,5 @@
     "nodemon": "^1.19.1",
     "ts-node": "^8.3.0",
     "webpack-node-externals": "^1.7.2"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "**/*.test.ts",
-      "**/*.spec.ts",
-      ".git"
-    ],
-    "watch": [
-      "functions",
-      "../../packages/**/*"
-    ],
-    "exec": "node -r ts-node/register functions/cms",
-    "ext": "ts"
   }
 }
