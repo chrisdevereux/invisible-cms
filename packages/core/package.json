@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.0",
+  "version": "0.0.1",
   "peerDependencies": {
     "react": "^16.8.6"
   },

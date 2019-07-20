@@ -3,9 +3,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.0",
+  "version": "0.0.1",
   "dependencies": {
-    "@invisible-cms/core": "0.1.0",
+    "@invisible-cms/core": "^0.0.1",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {

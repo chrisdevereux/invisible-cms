@@ -1,7 +1,7 @@
 {
   "name": "@invisible-cms/example-firebase-netlify-gatsby",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.0.1",
   "scripts": {
     "edit": "CMS_ADMIN=true dotenv gatsby develop",
     "develop": "dotenv gatsby develop",
@@ -9,16 +9,16 @@
     "backend": "dotenv nodemon"
   },
   "dependencies": {
-    "@invisible-cms/express": "0.1.0",
-    "@invisible-cms/firebase": "0.1.0",
-    "@invisible-cms/netlify": "0.1.0",
-    "@invisible-cms/react": "0.1.0",
+    "@invisible-cms/express": "^0.0.1",
+    "@invisible-cms/firebase": "^0.0.1",
+    "@invisible-cms/netlify": "^0.0.1",
+    "@invisible-cms/react": "^0.0.1",
     "firebase-admin": "^8.2.0",
     "gatsby": "^2.3.31",
     "gatsby-link": "^2.0.16",
-    "gatsby-source-invisible-cms": "*",
     "gatsby-plugin-react-helmet": "^3.0.12",
     "gatsby-plugin-typescript": "^2.0.13",
+    "gatsby-source-invisible-cms": "^0.0.1",
     "serverless-http": "^2.0.2"
   },
   "devDependencies": {
@@ -30,8 +30,15 @@
     "webpack-node-externals": "^1.7.2"
   },
   "nodemonConfig": {
-    "ignore": ["**/*.test.ts","**/*.spec.ts",".git"],
-    "watch": ["functions", "../../packages/**/*"],
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git"
+    ],
+    "watch": [
+      "functions",
+      "../../packages/**/*"
+    ],
     "exec": "node -r ts-node/register functions/cms",
     "ext": "ts"
   }
