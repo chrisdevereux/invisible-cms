@@ -3,15 +3,18 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "dependencies": {
-    "@invisible-cms/core": "^0.0.3",
+    "@invisible-cms/core": "^0.0.4",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@types/node-fetch": "^2.3.7"
   },
   "files": [
-   "*.js", "*.mjs", ".d.ts", "*.map"
+    "*.js",
+    "*.mjs",
+    ".d.ts",
+    "*.map"
   ]
 }

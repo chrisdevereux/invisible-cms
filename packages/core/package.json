@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.3",
+  "version": "0.0.4",
   "peerDependencies": {
     "react": "^16.8.6"
   },
@@ -12,6 +12,9 @@
     "react": "^16.8.6"
   },
   "files": [
-   "*.js", "*.mjs", ".d.ts", "*.map"
+    "*.js",
+    "*.mjs",
+    ".d.ts",
+    "*.map"
   ]
 }
