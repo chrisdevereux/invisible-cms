@@ -1,11 +1,11 @@
-import { DisplayRichText, ContentItem, ContentType } from '@invisible-cms/react'
+import { DisplayRichText, ContentItem, ContentType, DisplayList } from '@invisible-cms/react'
 import React from 'react';
 
 const Home = () => (
   <>
-    <ContentItem id="name" type={ContentType.title()}>
-      <DisplayRichText />
-    </ContentItem>
+  <DisplayList itemType={ContentType.title()}>
+    <DisplayRichText />
+  </DisplayList>
   </>
 )
 

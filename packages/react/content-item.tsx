@@ -23,17 +23,19 @@ export const ContentItem = ({ id, type, label = id, children, contentMapper = Co
   )
 }
 
-export const ContentArray = ({ children, keyBy = indexKey }) => {
+export const ContentIterator = ({ children, keyBy = indexKey }) => {
   const parent = useContent<any[]>()
+  const parentValue = Array.isArray(parent.value) ? parent.value : []
+
   const onChange = (i, change) => parent.onChange(
-    produce(parent.value, draft => {
+    produce(parentValue, draft => {
       draft[i] = change
     })
   )
 
   return (
     <>
-      {parent.value.map((child, i) => (
+      {parentValue.map((child, i) => (
         <ProvideContent
           {...parent}
           key={keyBy(child, i)}
@@ -41,7 +43,7 @@ export const ContentArray = ({ children, keyBy = indexKey }) => {
           label={String(i)}
           onChange={x => onChange(i, x)}
         >
-          {children()}
+          {children}
         </ProvideContent>
       ))}
     </>

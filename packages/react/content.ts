@@ -3,7 +3,7 @@ import { ContentPlaceholder } from "./content-placeholder";
 
 export interface Content<T = {}> {
   value: T
-  onChange?: (x: T) => void
+  onChange: (x: T) => void
   label?: string
   editable: boolean
 }
@@ -25,8 +25,17 @@ export interface ContentType {
   placeholder: ContentPlaceholder
 }
 
+export interface ContainerType extends ContentType {
+  elementType: ContentType
+}
+
 export const ContentType = {
-  title: (): ContentType => ({ name: 'title', placeholder: ContentPlaceholder.words() })
+  title: (): ContentType => ({ name: 'title', placeholder: ContentPlaceholder.words() }),
+  list: ({ elementType }): ContainerType => ({
+    name: elementType.name,
+    placeholder: ContentPlaceholder.array({ innerType: elementType }),
+    elementType
+  }),
 }
 
 export const placeholderContent = (type: ContentType, seed = 0) => type.placeholder(seed)
