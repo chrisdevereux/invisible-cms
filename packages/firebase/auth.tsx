@@ -1,4 +1,4 @@
-import { CmsAuthProvider } from '@invisible-cms/core'
+import { CmsAuthProvider, CmsLoginUiProps } from '@invisible-cms/core'
 import React from 'react';
 import * as firebase from 'firebase'
 import * as firebaseui from 'firebaseui';
@@ -15,7 +15,7 @@ export default class FirebaseCmsAuth implements CmsAuthProvider {
     firebase.initializeApp(props.firebaseConfig)
   }
 
-  loginUi = ({ onLogin }) => (
+  loginUi = ({ onLogin }: CmsLoginUiProps) => (
     <div style={{ position: 'fixed', width: '100%', top: '50vh', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <StyledFirebaseAuth
         uiConfig={{
@@ -26,7 +26,7 @@ export default class FirebaseCmsAuth implements CmsAuthProvider {
           callbacks: {
             signInSuccessWithAuthResult: () => {
               const handleResult = async () => {
-                onLogin(await this.init())
+                onLogin({ token: await this.init() })
               }
 
               handleResult()

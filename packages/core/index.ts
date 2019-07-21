@@ -1,9 +1,11 @@
 import { ReactNode, ComponentType } from "react";
 
 export interface CmsAuthProvider {
-  loginUi: ComponentType<{ onLogin: (props: { token: string }) => void }>
+  loginUi: ComponentType<CmsLoginUiProps>
   init: () => Promise<string | undefined>
 }
+
+export interface CmsLoginUiProps { onLogin: (props: { token: string }) => void }
 
 export interface CmsDeployTarget {
   publish(): Promise<void>

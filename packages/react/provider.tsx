@@ -1,13 +1,21 @@
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, ReactNode } from "react";
 import React from "react";
 import { Client } from "./client";
 import { useAsync } from "./use-async";
 import { GlobalUi } from './global-ui'
 import { ConfigContext } from "./config";
 import { ProvideContent } from "./content";
+import { CmsAuthProvider } from "@invisible-cms/core";
+import { noop } from "./util";
 
-export const CmsAdmin = ({ authProvider, endpoint, children }) => {
-  const [authState, setAuthState] = useState()
+interface CmsAdminProps {
+  authProvider: CmsAuthProvider
+  endpoint: string
+  children: ReactNode
+}
+
+export const CmsAdmin = ({ authProvider, endpoint, children }: CmsAdminProps) => {
+  const [authState, setAuthState] = useState<{ token: string }>()
   useEffect(() => {
     const checkLogin = async () => {
       const token = await authProvider.init()
@@ -35,7 +43,7 @@ export const CmsAdmin = ({ authProvider, endpoint, children }) => {
 }
 
 export const CmsDisplay = ({ children, data }) => (
-  <ProvideContent value={data} editable={false}>
+  <ProvideContent value={data} editable={false} onChange={noop}>
     {children}
   </ProvideContent>
 )
