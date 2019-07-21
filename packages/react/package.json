@@ -3,9 +3,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.7",
+  "version": "0.0.8",
   "dependencies": {
-    "@invisible-cms/core": "^0.0.7",
+    "@invisible-cms/core": "^0.0.8",
     "dompurify": "^1.0.11",
     "immer": "^3.1.3",
     "isomorphic-fetch": "^2.2.1",
