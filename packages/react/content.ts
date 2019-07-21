@@ -31,6 +31,7 @@ export interface ContainerType extends ContentType {
 
 export const ContentType = {
   title: (): ContentType => ({ name: 'title', placeholder: ContentPlaceholder.words() }),
+  rich: (): ContentType => ({ name: 'content', placeholder: ContentPlaceholder.sentence() }),
   list: ({ elementType }): ContainerType => ({
     name: elementType.name,
     placeholder: ContentPlaceholder.array({ innerType: elementType }),
