@@ -16,7 +16,7 @@ export default class FirebaseCmsAuth implements CmsAuthProvider {
   }
 
   loginUi = ({ onLogin }) => (
-    <div style={{ width: '100vw', height: '100vh', background: 'lightgrey', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ position: 'fixed', width: '100%', top: '50vh', transform: 'translateY(-50%)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <StyledFirebaseAuth
         uiConfig={{
           signInOptions: this.props.signInOptions || [
