@@ -4,9 +4,9 @@ import { ContentItem } from './content-item';
 import { DisplayRichText } from './display-rich';
 import { ContentType } from './content';
 
-storiesOf('invisible-cms/DisplayRich', module)
+storiesOf('react/DisplayRich', module)
   .add('standard', () => (
-    <ContentItem id="value" type={ContentType.title}>
+    <ContentItem dataRef="value" type={ContentType.title()}>
       <DisplayRichText />
     </ContentItem>
   ))

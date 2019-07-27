@@ -19,6 +19,10 @@
     "*.js",
     "*.mjs",
     "*.d.ts",
-    "*.map"
+    "*.map",
+    "lib/**/*.js",
+    "lib/**/*.mjs",
+    "lib/**/*.d.ts",
+    "lib/**/*.map"
   ]
 }

@@ -22,7 +22,8 @@
     "gatsby-source-invisible-cms": "^0.0.8",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "serverless-http": "^2.0.2"
+    "serverless-http": "^2.0.2",
+    "styled-components": "^4.3.2"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.3.3",
