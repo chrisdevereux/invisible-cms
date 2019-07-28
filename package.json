@@ -26,8 +26,8 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build": "bash tasks.bash build",
-    "clean": "bash tasks.bash clean",
+    "build": "zsh tasks.zsh build",
+    "clean": "zsh tasks.zsh clean",
     "release": "yarn build && lerna publish"
   }
 }

@@ -4,7 +4,7 @@ import { ProvideContent } from '../packages/react'
 import { StateContainer } from '../packages/react/lib/util';
 
 const req = require.context('../packages', true, /\.stories\.tsx$/);
-console.log('sc', StateContainer)
+
 addDecorator(children => (
   <StateContainer initial={{}}>
     {state => (

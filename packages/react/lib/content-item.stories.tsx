@@ -2,6 +2,7 @@ import { storiesOf } from "@storybook/react";
 import { ContentIterator, ContentItem, ContentSwitch } from "./content-item";
 import React from "react";
 import { ContentType } from "./content";
+import { DisplayRichText } from "./display-rich";
 
 storiesOf('react/ContentItem', module)
   .add('list', () => (
@@ -25,4 +26,9 @@ storiesOf('react/ContentItem', module)
         </ContentItem>
       </ContentSwitch>
     </ContentIterator>
+  ))
+  .add('rich', () => (
+    <ContentItem dataRef="rich">
+      <DisplayRichText />
+    </ContentItem>
   ))

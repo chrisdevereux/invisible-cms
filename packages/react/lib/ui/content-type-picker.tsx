@@ -1,6 +1,6 @@
 import React from "react";
 import { placeholderContent } from "../content";
-import { EditUiButton, EditUiSelect } from "./atoms";
+import { EditUiSelect } from "./atoms";
 
 export const ContentTypePicker = ({ availableTypes, value, onChange }) => (
   <EditUiSelect

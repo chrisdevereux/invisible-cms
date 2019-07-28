@@ -1,6 +1,11 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, useCallback } from "react";
+import { debounce } from "lodash";
 
 export const noop = () => {}
+
+export function useDebounce<T extends (...args: any) => void>(ms: number, fn: T, deps: unknown[]): T {
+  return useCallback(debounce(fn, ms), deps)
+}
 
 interface StateContainerProps<T> {
   initial: T
@@ -10,6 +15,7 @@ interface StateContainerProps<T> {
 export function StateContainer<T>({ children, initial }: StateContainerProps<T>) {
   const [value, onChange] = useState(initial)
   console.log('state:', value)
+
   return children({ value, onChange })
 }
 

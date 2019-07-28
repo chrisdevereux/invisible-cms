@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
-const transparent = 'rgba(0,0,0,0)'
-const semiDarkened = 'rgba(0,0,0,0.1)'
-const darkened = 'rgba(0,0,0,0.2)'
+export const transparent = 'rgba(0,0,0,0)'
+export const semiDarkened = 'rgba(0,0,0,0.1)'
+export const darkened = 'rgba(0,0,0,0.2)'
+
+export const systemFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"'
 
 interface ControlProps {
   selected?: boolean
@@ -14,15 +16,14 @@ const control = ({ selected }: ControlProps) => `
   outline: none;
   border: none;
   background-color: ${selected ? darkened : transparent};
-  box-shadow: ${selected ? '0px 1px 2px rgba(0,0,0,0.2)' : transparent};
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 0px;
   min-width: 2rem;
 
   &:hover {
-    background-color: ${selected ? darkened : semiDarkened};
-    box-shadow: 0px 1px 2px rgba(0,0,0,0.1);
+    ${!selected ? 'background-color: rgba(255,255,255,0.75);' : ''}
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
   }
 
   &:active,
@@ -51,6 +52,13 @@ export const EditUiControls = styled.div`
   box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
 `
 
+export const Paper = styled.div`
+  display: inline-block;
+  background-color: rgba(255,255,255,0.8);
+  box-shadow: 0px 1px 5px rgba(0,0,0,0.3);
+  padding: 1rem;
+`
+
 export const HoverOver = styled.div`
   position: absolute;
   right: 0px;
@@ -65,4 +73,31 @@ export const HoverOver = styled.div`
   &:hover {
     opacity: 1;
   }
+`
+
+export const Input = styled.input`
+  outline: none;
+  font-size: 13px;
+  box-sizing: border-box;
+  padding: 0.5rem;
+  border: none;
+  border-bottom: 1px solid ${semiDarkened};
+
+  &:hover,
+  &:focus {
+    border-bottom: none;
+    box-shadow: 0px 1px 2px rgba(0,0,0,0.3);
+  }
+`
+
+export const FormPrompt = styled.div`
+  font-size: 13px;
+  font-weight: bold;
+  font-family: ${systemFont};
+  margin-bottom: 1rem;
+`
+
+export const Columns = styled.div`
+  display: flex;
+  flex-direction: row;
 `
