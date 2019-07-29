@@ -2,7 +2,7 @@ import { storiesOf } from "@storybook/react";
 import { ContentIterator, ContentItem, ContentSwitch } from "./content-item";
 import React from "react";
 import { ContentType } from "./content";
-import { DisplayRichText } from "./display-rich";
+import { DisplayRichText } from "./display/display-rich";
 
 storiesOf('react/ContentItem', module)
   .add('list', () => (

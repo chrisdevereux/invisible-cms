@@ -1,4 +1,5 @@
 import { ReactNode, ComponentType } from "react";
+import { Readable } from "stream";
 
 export interface CmsAuthProvider {
   loginUi: ComponentType<CmsLoginUiProps>
@@ -13,6 +14,7 @@ export interface CmsDeployTarget {
 
 export interface CmsBackend {
   // listRevisions(): Promise<CmsRevision>
+  putFile(file: Readable, contentType: string): Promise<{ url: string }>
   getRevision(id?: string): Promise<CmsRevision>
   createRevision(revision: Omit<CmsRevision, 'id'>): Promise<CmsRevision>
   putRevision(revision: CmsRevision): Promise<void>

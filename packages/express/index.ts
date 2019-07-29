@@ -1,7 +1,8 @@
-import express from 'express'
+import express, { RequestHandler } from 'express'
 import cors from 'cors'
 import { json } from 'body-parser'
 import { CmsBackend, CmsDeployTarget, CmsRevisionProps } from '@invisible-cms/core';
+import multiparty from 'multiparty'
 
 interface CreateCmsProps {
   prefix?: string
@@ -15,6 +16,42 @@ export const createCms = ({ prefix = '', backend, target }: CreateCmsProps) => {
   app.use(cors({ origin: true }))
   app.use(json())
 
+  app.put(prefix + '/file', handleErrors(async (req, res) => {
+    const form = new multiparty.Form()
+    let done = false
+
+    form.on('error', err => {
+      console.error(err)
+      res.sendStatus(500)
+    })
+
+    form.on('part', async (part) => {
+      try {
+        if (part.filename && part.name === 'data') {
+          done = true
+          let response = await backend.putFile(part, part.headers['content-type'])
+          res.writeHead(200, { 'content-type': 'application/json' })
+          res.write(JSON.stringify(response))
+          res.end()
+
+        } else {
+          part.resume()
+        }
+
+      } catch (err) {
+        console.error(err)
+        res.sendStatus(500)
+      }
+    })
+
+    form.on('close', () => {
+      if (!done) {
+        res.sendStatus(400)
+      }
+    })
+
+    form.parse(req)
+  }))
   app.get(prefix + '/revision/latest', handleErrors(async (req, res) => {
     res.send(await backend.getRevision())
   }))
@@ -50,7 +87,7 @@ export const createCms = ({ prefix = '', backend, target }: CreateCmsProps) => {
   return app
 }
 
-const handleErrors = fn => async (req, res, next) => {
+const handleErrors = (fn: RequestHandler): RequestHandler => async (req, res, next) => {
   try {
     await fn(req, res, next)
 

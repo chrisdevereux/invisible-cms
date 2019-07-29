@@ -13,6 +13,7 @@
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.15",
     "react-contenteditable": "^3.2.6",
+    "react-dropzone": "^10.1.6",
     "react-jeff": "^1.2.0",
     "react-modal": "^3.9.1",
     "react-tiny-popover": "^3.4.5"

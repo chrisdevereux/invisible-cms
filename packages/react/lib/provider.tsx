@@ -34,7 +34,7 @@ export const CmsAdmin = ({ authProvider, endpoint, children }: CmsAdminProps) =>
   }
 
   return (
-    <ConfigContext.Provider value={{ editable: true }}>
+    <ConfigContext.Provider value={{ editable: true, client: new Client(endpoint, authState.token) }}>
       <CmsController token={authState.token} endpoint={endpoint}>
         {children}
       </CmsController>

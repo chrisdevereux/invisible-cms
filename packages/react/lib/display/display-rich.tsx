@@ -1,7 +1,7 @@
 import  React, { createElement } from "react";
 import createPurify from 'dompurify'
-import { useContent } from "./content";
-import { RichEditor } from "./editor/rich-editor";
+import { useContent } from "../content";
+import { RichEditor } from "../editor/rich-editor";
 
 const purify = createPurify()
 

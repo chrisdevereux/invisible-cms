@@ -1,4 +1,4 @@
-import { DisplayRichText, ContentIterator, ContentItem, ContentType, ContentSwitch } from '@invisible-cms/react'
+import { DisplayRichText, ContentItem, DisplayImage } from '@invisible-cms/react'
 import React, { CSSProperties, ReactNode } from 'react';
 
 interface BoxProps extends CSSProperties {
@@ -11,36 +11,19 @@ const Box = ({ children, ...style }: BoxProps) => (
 
 const Home = () => (
   <>
-    <div>
-      <h2>Content Iterator</h2>
-      <ContentIterator dataRef="content">
-        <ContentItem type={ContentType.rich()}>
-          <Box>Hello</Box>
-        </ContentItem>
-      </ContentIterator>
-    </div>
-
-    <div>
-      <h2>Content Switch</h2>
-      <ContentIterator dataRef="contentSwitch">
-        <ContentSwitch>
-          <ContentItem type={ContentType.tagged({ tag: 'red' })}>
-            <Box backgroundColor="red" />
-          </ContentItem>
-
-          <ContentItem type={ContentType.tagged({ tag: 'green' })}>
-            <Box backgroundColor="green" />
-          </ContentItem>
-        </ContentSwitch>
-      </ContentIterator>
-    </div>
-
-    <div>
+    <section>
       <h2>Rich</h2>
-      <ContentItem dataRef="rich">
+      <ContentItem dataRef="richText">
         <DisplayRichText />
       </ContentItem>
-    </div>
+    </section>
+
+    <section>
+      <h2>Image</h2>
+      <ContentItem dataRef="image">
+        <DisplayImage style={{ display: 'block', width: 300, height: 300, boxShadow: '0px 1px 5px rgba(0,0,0,0.3)' }} />
+      </ContentItem>
+    </section>
   </>
 )
 

@@ -8,14 +8,15 @@ export const systemFont = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto
 
 interface ControlProps {
   selected?: boolean
+  translucent?: boolean
 }
 
-const control = ({ selected }: ControlProps) => `
+const control = ({ selected, translucent }: ControlProps) => `
   box-sizing: border-box;
   font-size: 12px;
   outline: none;
   border: none;
-  background-color: ${selected ? darkened : transparent};
+  background-color: ${selected ? darkened : (translucent ? 'rgba(255,255,255,0.75)' : transparent)};
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 0px;
@@ -29,6 +30,18 @@ const control = ({ selected }: ControlProps) => `
   &:active,
   &:focus {
     outline: none;
+  }
+`
+
+const showOnMouseover = () => `
+  opacity: 0;
+  z-index: 1000;
+
+  *:hover > & {
+    opacity: 1;
+  }
+  &:hover {
+    opacity: 1;
   }
 `
 
@@ -60,19 +73,12 @@ export const Paper = styled.div`
 `
 
 export const HoverOver = styled.div`
+  ${showOnMouseover}
+
   position: absolute;
   right: 0px;
   top: 50%;
   transform: translateY(-50%);
-  opacity: 0;
-  z-index: 1000;
-
-  *:hover > & {
-    opacity: 1;
-  }
-  &:hover {
-    opacity: 1;
-  }
 `
 
 export const Input = styled.input`
@@ -100,4 +106,15 @@ export const FormPrompt = styled.div`
 export const Columns = styled.div`
   display: flex;
   flex-direction: row;
+`
+
+export const CenterOverParent = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+`
+
+export const ShowOnMouseover = styled.div`
+  ${showOnMouseover}
 `

@@ -16,6 +16,13 @@ export class Client {
     return this.request('PUT', '/revision/' + id, body)
   }
 
+  putFile(image: Blob): Promise<{ url: string }> {
+    const body = new FormData()
+    body.set('data', image)
+
+    return this.request('PUT', '/file', body)
+  }
+
   getPublishedRevision(): Promise<CmsRevision | undefined> {
     return this.request('GET', '/data')
   }
@@ -24,13 +31,15 @@ export class Client {
     return this.request('POST', '/revision', revision)
   }
 
-  private async request(method: string, path: string, body?: object) {
+  private async request(method: string, path: string, body?: any) {
+    const isJson = body && body.constructor === Object
+
     const res = await fetch(this.endpoint + path, {
       method,
-      body: body && JSON.stringify(body),
+      body: isJson ? JSON.stringify(body) : body,
       headers: {
         'Authorization': 'Bearer ' + this.token,
-        ...body ?{ 'Content-Type': 'application/json'} : undefined
+        ...isJson ? { 'Content-Type': 'application/json'} : undefined,
       }
     })
 

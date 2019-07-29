@@ -53,4 +53,4 @@ export const placeholderContent = (type: ContentType, seed = 0) => type.placehol
 export const ContentContext = createContext<Content<any>>(undefined)
 export const ProvideContent = ({ children, ...value }: PropsWithChildren<Content<any>>) => createElement(ContentContext.Provider, {value}, ...Children.toArray(children))
 
-export const useContent = <T>(dataRef?: string) => useContext<Content<T>>(ContentContext)
+export const useContent = <T>() => useContext<Content<T>>(ContentContext)

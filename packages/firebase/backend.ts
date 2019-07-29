@@ -1,8 +1,33 @@
 import { CmsBackend, CmsRevision } from "@invisible-cms/core";
-import { firestore } from 'firebase-admin'
+import { firestore, storage } from 'firebase-admin'
+import { Readable, Stream } from "stream";
+import hasha from 'hasha'
+import uuid from 'uuid'
+import { File, CreateWriteStreamOptions } from "@google-cloud/storage";
+import { extension } from 'mime-types'
 
 export class FirebaseCmsBackend implements CmsBackend {
   db = firestore()
+  filestore = storage()
+
+  async putFile(file: Readable, contentType: string): Promise<{ url: string; }> {
+    const extname = '.' + extension(contentType)
+    const bucketname = this.filestore.bucket().name
+
+    const [hash, fileRef] = await Promise.all([
+      hasha.fromStream(file, { algorithm: 'md5' }),
+      this.uploadFile('tmp_' + uuid() + extname, file, {
+        contentType,
+        public: true
+      })
+    ])
+    const filename = hash + extname
+    await fileRef.move(filename)
+
+    return {
+      url: `https://firebasestorage.googleapis.com/v0/b/${bucketname}/o/${filename}?alt=media`
+    }
+  }
 
   async getRevision(id?: string): Promise<CmsRevision> {
     if (id) {
@@ -45,6 +70,25 @@ export class FirebaseCmsBackend implements CmsBackend {
 
     return mostRecent.data().revisionId
   }
+
+  private uploadFile(name: string, data: Readable, opts: CreateWriteStreamOptions = {}) {
+    const fileRef = this.filestore.bucket().file(name)
+    const stream = fileRef.createWriteStream(opts)
+
+    const result = new Promise<File>((resolve, reject) => {
+      stream.on('error', (err) => {
+        reject(err)
+      });
+
+      stream.on('finish', async () => {
+        resolve(fileRef)
+      })
+    })
+
+    data.pipe(stream)
+    return result
+  }
 }
 
 const first = <T>(x: T[] | null) => x && x[0]
+
