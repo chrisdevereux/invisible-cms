@@ -4,31 +4,31 @@ import fetch from 'isomorphic-fetch'
 export class Client {
   constructor(private endpoint: string, private token: string) {}
 
-  publishRevision(id: string): Promise<void> {
-    return this.request('POST', '/revision/' + id + '/publish')
-  }
-
-  getRevision(id: string = 'latest'): Promise<CmsRevision | undefined> {
-    return this.request('GET', '/revision/' + id)
-  }
-
-  putRevision(id: string, body: CmsRevisionProps): Promise<CmsRevision | undefined> {
-    return this.request('PUT', '/revision/' + id, body)
-  }
-
-  putFile(image: Blob): Promise<{ url: string }> {
+  putFile(file: Blob): Promise<{ url: string }> {
     const body = new FormData()
-    body.set('data', image)
+    body.set('data', file)
 
     return this.request('PUT', '/file', body)
   }
 
-  getPublishedRevision(): Promise<CmsRevision | undefined> {
-    return this.request('GET', '/data')
+  createPageRevision(page: string, revision: CmsRevisionProps): Promise<CmsRevision> {
+    return this.request('POST', '/page/' + page + '/revision/', revision)
   }
 
-  createRevision(revision: CmsRevisionProps): Promise<CmsRevision> {
-    return this.request('POST', '/revision', revision)
+  getPageRevision(page: string, revisionId: string = 'latest'): Promise<CmsRevision | undefined> {
+    return this.request('GET', '/page/' + page + '/revision/' + revisionId)
+  }
+
+  putPageRevision(page: string, revisionId: string, body: CmsRevisionProps): Promise<CmsRevision | undefined> {
+    return this.request('PUT', '/page/' + page + '/revision/' + revisionId, body)
+  }
+
+  getPublishedPageRevision(page: string): Promise<CmsRevision | undefined> {
+    return this.request('GET', '/page/' + page + '/revision/published')
+  }
+
+  publish(page: string, revisionId: string): Promise<void> {
+    return this.request('POST', '/page/' + page + '/revision/' + revisionId + '/publish')
   }
 
   private async request(method: string, path: string, body?: any) {

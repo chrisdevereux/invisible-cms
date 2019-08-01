@@ -19,9 +19,9 @@ admin.initializeApp({
   ...firebaseConfig
 })
 
+const target = new NetlifyCmsDeployTarget(configString('NETLIFY_DEPLOY_HOOK'))
 const cmsService = createCms({
-  backend: new FirebaseCmsBackend(),
-  target: new NetlifyCmsDeployTarget(configString('NETLIFY_DEPLOY_HOOK'))
+  backend: new FirebaseCmsBackend({ target }),
 })
 
 exports.cms = functions.https.onRequest(cmsService)

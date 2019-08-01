@@ -1,16 +1,15 @@
 import express, { RequestHandler } from 'express'
 import cors from 'cors'
 import { json } from 'body-parser'
-import { CmsBackend, CmsDeployTarget, CmsRevisionProps } from '@invisible-cms/core';
+import { CmsBackend, CmsRevisionProps } from '@invisible-cms/core';
 import multiparty from 'multiparty'
 
 interface CreateCmsProps {
   prefix?: string
-  backend: CmsBackend,
-  target: CmsDeployTarget
+  backend: CmsBackend
 }
 
-export const createCms = ({ prefix = '', backend, target }: CreateCmsProps) => {
+export const createCms = ({ prefix = '', backend }: CreateCmsProps) => {
   const app = express()
 
   app.use(cors({ origin: true }))
@@ -52,36 +51,39 @@ export const createCms = ({ prefix = '', backend, target }: CreateCmsProps) => {
 
     form.parse(req)
   }))
-  app.get(prefix + '/revision/latest', handleErrors(async (req, res) => {
-    res.send(await backend.getRevision())
-  }))
-  app.get(prefix + '/revision/:id', handleErrors(async (req, res) => {
-    res.send(await backend.getRevision(req.params.id))
-  }))
-  app.put(prefix + '/revision/:id', handleErrors(async (req, res) => {
+  app.post(prefix + '/page/:page/revision', handleErrors(async (req, res) => {
     const props: CmsRevisionProps = req.body
-    const revision = { ...props, id: req.params.id, timestamp: Date.now() }
-    await backend.putRevision(revision)
+    const { page } = req.params
 
-    res.send(revision)
+    res.send(await backend.createPageRevision(page, props))
   }))
-  app.post(prefix + '/revision', handleErrors(async (req, res) => {
+  app.get(prefix + '/page/:page/revision/latest', handleErrors(async (req, res) => {
+    const { page } = req.params
+
+    res.send(await backend.getPageRevision(page))
+  }))
+  app.get(prefix + '/page/:page/revision/:revision', handleErrors(async (req, res) => {
+    const { page, revision } = req.params
+
+    res.send(await backend.getPageRevision(page, revision))
+  }))
+  app.get(prefix + '/page/:page/revision/published', handleErrors(async (req, res) => {
+    const { page } = req.params
+
+    res.send(await backend.getPublishedPageRevision(page))
+  }))
+  app.put(prefix + '/page/:page/revision/:revision', handleErrors(async (req, res) => {
     const props: CmsRevisionProps = req.body
+    const { page, revision } = req.params
 
-    res.send(await backend.createRevision({ ...props, timestamp: Date.now() }))
+    res.send(await backend.putPageRevision(page, revision, props))
   }))
-  app.post(prefix + '/revision/:id/publish', handleErrors(async (req, res) => {
-    const revision = await backend.getRevision(req.params.id)
-    await backend.setPublishedRevision(revision.id)
-    await target.publish()
+  app.post(prefix + '/page/:page/revision/:revision/publish', handleErrors(async (req, res) => {
+    const { page, revision } = req.params
+
+    await backend.publish(page, revision)
 
     res.sendStatus(204)
-  }))
-  app.get(prefix + '/data', handleErrors(async (req, res) => {
-    const revisionId = await backend.getPublishedRevisionId()
-    const revision = await backend.getRevision(revisionId)
-
-    res.send(revision)
   }))
 
   return app

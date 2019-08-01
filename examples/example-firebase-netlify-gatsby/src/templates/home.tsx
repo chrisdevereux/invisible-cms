@@ -5,10 +5,6 @@ interface BoxProps extends CSSProperties {
   children?: ReactNode
 }
 
-const Box = ({ children, ...style }: BoxProps) => (
-  <div style={{ height: '2rem', margin: '0.5rem', ...style }}>{children}</div>
-)
-
 const Home = () => (
   <>
     <section>

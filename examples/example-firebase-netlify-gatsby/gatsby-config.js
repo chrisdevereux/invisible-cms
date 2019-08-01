@@ -17,7 +17,13 @@ module.exports = {
         pages: [
           {
             path: '/',
+            id: 'home',
             component: require.resolve('./src/templates/home.tsx')
+          },
+          {
+            path: '/other',
+            id: 'other',
+            component: require.resolve('./src/templates/other.tsx')
           }
         ]
       },

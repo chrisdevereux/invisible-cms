@@ -3,18 +3,18 @@ import React from "react";
 import { Client } from "./client";
 import { useAsync } from "./use-async";
 import { GlobalUi } from './global-ui'
-import { ConfigContext } from "./config";
+import { ConfigContext, useClient } from "./config";
 import { ProvideContent } from "./content";
 import { CmsAuthProvider } from "@invisible-cms/core";
 import { noop } from "./util";
 
-interface CmsAdminProps {
+interface CmsAuthGuardProps {
   authProvider: CmsAuthProvider
   endpoint: string
-  children: ReactNode
+  children?: ReactNode
 }
 
-export const CmsAdmin = ({ authProvider, endpoint, children }: CmsAdminProps) => {
+export const CmsAdminApp = ({ authProvider, endpoint, children }: CmsAuthGuardProps) => {
   const [authState, setAuthState] = useState<{ token: string }>()
   useEffect(() => {
     const checkLogin = async () => {
@@ -35,22 +35,34 @@ export const CmsAdmin = ({ authProvider, endpoint, children }: CmsAdminProps) =>
 
   return (
     <ConfigContext.Provider value={{ editable: true, client: new Client(endpoint, authState.token) }}>
-      <CmsController token={authState.token} endpoint={endpoint}>
-        {children}
-      </CmsController>
+      {children}
     </ConfigContext.Provider>
   )
 }
 
-export const CmsDisplay = ({ children, data }) => (
+interface CmsDisplayProps {
+  data: {}
+  children: ReactNode
+}
+
+export const CmsPage = ({ children, data }: CmsDisplayProps) => (
   <ProvideContent value={data} editable={false} onChange={noop}>
     {children}
   </ProvideContent>
 )
 
-const CmsController = ({ token, endpoint, children }) => {
-  const client = useMemo(() => new Client(endpoint, token), [endpoint, token])
-  const revision = useAsync(() => client.getRevision(), [client])
+interface CmsAdminPageProps {
+  children: ReactNode
+  pageId: string
+}
+
+export const CmsAdminPage = ({ children, pageId }: CmsAdminPageProps) => {
+  const client = useClient()
+  const revision = useAsync(async () => {
+    const revision = await client.getPageRevision(pageId)
+    return revision || client.createPageRevision(pageId, { content: {} })
+  }, [client])
+
   const [editValue, setEditValue] = useState()
 
   if (!revision) {
@@ -59,12 +71,11 @@ const CmsController = ({ token, endpoint, children }) => {
 
   const save = async () => {
     if (revision.value) {
-      const nextRevision = { ...revision.value, content: editValue }
-      await client.putRevision(revision.value.id, nextRevision)
-      revision.value = nextRevision
+      const revisionId = revision.value.id
+      revision.value = await client.putPageRevision(pageId, revisionId, { content: editValue })
 
     } else {
-      revision.value = await client.createRevision({ content: editValue })
+      revision.value = await client.createPageRevision(pageId, { content: editValue })
     }
 
     setEditValue(undefined)
@@ -76,9 +87,9 @@ const CmsController = ({ token, endpoint, children }) => {
         revision={revision.value}
         onPublish={async () =>{
           await save()
-          await client.publishRevision(revision.value.id)
+          await client.publish(pageId, revision.value.id)
 
-          revision.value = await client.createRevision(revision.value.content)
+          revision.value = await client.createPageRevision(pageId, { content: revision.value.content })
         }}
         onSave={save}
       />

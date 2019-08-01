@@ -1,5 +1,6 @@
 import { Client } from '@invisible-cms/react'
 import * as path from 'path'
+import { GatsbyAppConfig } from './interfaces';
 
 interface GatsbyNode {
   id: string
@@ -27,32 +28,39 @@ interface SourceOpts {
   }
 }
 
-let authProviderPath: string = ''
+let config: GatsbyAppConfig
 
-export const onPreInit = (_: never, { auth }) => {
-  console.log({ auth })
-  authProviderPath = auth.startsWith('.') ? path.resolve(auth) : require.resolve(auth)
+export const onPreInit = (_: never, configSettings: GatsbyAppConfig) => {
+  config = configSettings
 }
 
 export const createPages = async ({ actions }: SourceOpts, { endpoint, token, pages }) => {
   const { createPage } = actions
   const client = new Client(endpoint, token)
 
-  const revision = await client.getPublishedRevision()
-
   for (const page of pages) {
+    const revision = await client.getPublishedPageRevision(page.id)
+
     createPage({
       component: page.component,
-      context: revision && revision.content || {},
+      context: {
+        pageId: page.id,
+        content: revision && revision.content || {}
+      },
       path: page.path
     })
   }
 }
 
 export const onCreateWebpackConfig = ({ actions, plugins }) => {
+  const { auth } = config
+
+  const authProviderPath = auth.startsWith('.') ? path.resolve(auth) : require.resolve(auth)
+
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
+        'process.env.CMS_ADMIN': JSON.stringify(Boolean(config.admin)),
         INVISIBLE_CMS_AUTH_PROVIDER_PATH: JSON.stringify(authProviderPath),
       }),
     ],

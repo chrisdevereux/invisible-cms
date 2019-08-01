@@ -1,12 +1,22 @@
-import { CmsBackend, CmsRevision } from "@invisible-cms/core";
+import { CmsBackend, CmsRevision, CmsRevisionProps, CmsDeployTarget } from "@invisible-cms/core";
 import { firestore, storage } from 'firebase-admin'
-import { Readable, Stream } from "stream";
+import { Readable } from "stream";
 import hasha from 'hasha'
 import uuid from 'uuid'
 import { File, CreateWriteStreamOptions } from "@google-cloud/storage";
 import { extension } from 'mime-types'
 
+interface FirebaseCmsBackendProps {
+  target: CmsDeployTarget
+}
+
 export class FirebaseCmsBackend implements CmsBackend {
+  constructor(
+    private props: FirebaseCmsBackendProps
+  ) {
+    Object.assign(this, { props })
+  }
+
   db = firestore()
   filestore = storage()
 
@@ -29,16 +39,26 @@ export class FirebaseCmsBackend implements CmsBackend {
     }
   }
 
-  async getRevision(id?: string): Promise<CmsRevision> {
+  async createPageRevision(page: string, props: CmsRevisionProps): Promise<CmsRevision> {
+    const data = this.toRevision(props)
+    const record = await this.revisions(page).add(data)
+
+    return {
+      ...data,
+      id: record.id
+    }
+  }
+
+  async getPageRevision(page: string, id?: string): Promise<any> {
     if (id) {
-      const snapshot = await this.db.collection('revision').doc(id).get()
+      const snapshot = await this.revisions(page).doc(id).get()
       return snapshot && {
         id: snapshot.id,
         ...snapshot.data() as any,
       }
 
     } else {
-      const querySnapshot = await this.db.collection('revision').orderBy('timestamp', 'desc').limit(1).get()
+      const querySnapshot = await this.revisions(page).orderBy('timestamp', 'desc').limit(1).get()
       const snapshot = first(querySnapshot.docs)
 
       return snapshot && {
@@ -48,27 +68,41 @@ export class FirebaseCmsBackend implements CmsBackend {
     }
   }
 
-  async createRevision(data: Omit<CmsRevision, 'id'>): Promise<CmsRevision> {
-    const revision = await this.db.collection('revision').add(data)
+  async putPageRevision(page: string, revisionId: string, props: CmsRevisionProps): Promise<CmsRevision> {
+    const data = this.toRevision(props)
+    await this.revisions(page).doc(revisionId).update(data)
+
     return {
-      ...data,
-      id: revision.id
+      id: revisionId,
+      ...data
     }
   }
 
-  async putRevision({ id, ...data }: CmsRevision): Promise<void> {
-    await this.db.collection('revision').doc(id).update(data)
-  }
-
-  async setPublishedRevision(id: string) {
-    await this.db.collection('publish').add({ revisionId: id, timestamp: Date.now() })
-  }
-
-  async getPublishedRevisionId(): Promise<string> {
-    const querySnapshot = await this.db.collection('publish').orderBy('timestamp', 'desc').limit(1).get()
+  async getPublishedPageRevision(page: string): Promise<CmsRevision> {
+    const querySnapshot = await this.deployments(page).orderBy('timestamp', 'desc').limit(1).get()
     const mostRecent = first(querySnapshot.docs)
 
-    return mostRecent.data().revisionId
+    return mostRecent.data() as CmsRevision
+  }
+
+  async publish(page: string, revisionId: string) {
+    await this.deployments(page).add({ revisionId, timestamp: Date.now() })
+    await this.props.target.publish()
+  }
+
+  private toRevision(props: CmsRevisionProps): Omit<CmsRevision, 'id'> {
+    return {
+      ...props,
+      timestamp: Date.now()
+    }
+  }
+
+  private revisions(page: string) {
+    return this.db.collection('page.revision:' + page)
+  }
+
+  private deployments(page: string) {
+    return this.db.collection('page.deployment:' + page)
   }
 
   private uploadFile(name: string, data: Readable, opts: CreateWriteStreamOptions = {}) {

@@ -13,17 +13,20 @@ export interface CmsDeployTarget {
 }
 
 export interface CmsBackend {
-  // listRevisions(): Promise<CmsRevision>
-  putFile(file: Readable, contentType: string): Promise<{ url: string }>
-  getRevision(id?: string): Promise<CmsRevision>
-  createRevision(revision: Omit<CmsRevision, 'id'>): Promise<CmsRevision>
-  putRevision(revision: CmsRevision): Promise<void>
-  setPublishedRevision(id: string): Promise<void>
-  getPublishedRevisionId(): Promise<string>
+  putFile(file: Readable, contentType: string): Promise<CmsFileRef>
+  createPageRevision(page: string, revision: CmsRevisionProps): Promise<CmsRevision>
+  getPageRevision(page: string, revisionId?: string): Promise<CmsRevision>
+  putPageRevision(page: string, revisionId: string, content: CmsRevisionProps): Promise<CmsRevision>
+  getPublishedPageRevision(page: string): Promise<CmsRevision>
+  publish(page: string, id: string): Promise<void>
 }
 
 export interface CmsRevisionProps {
   content: any
+}
+
+export interface CmsFileRef {
+  url: string
 }
 
 export interface CmsRevision extends CmsRevisionProps {
