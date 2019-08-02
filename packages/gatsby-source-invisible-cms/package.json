@@ -3,9 +3,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.8",
+  "version": "0.1.0",
   "dependencies": {
-    "@invisible-cms/react": "^0.0.8"
+    "@invisible-cms/react": "^0.1.0"
   },
   "main": "dist/commonjs/index.js",
   "module": "dist/esnext/index.js",
