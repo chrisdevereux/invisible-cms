@@ -33,8 +33,11 @@ export interface ContainerType extends ContentType {
 }
 
 export const ContentType = {
-  title: (): ContentType => ({ name: 'title', placeholder: ContentPlaceholder.words(), validator: x => typeof x === 'string' }),
-  rich: (): ContentType => ({ name: 'content', placeholder: ContentPlaceholder.sentence(), validator: x => typeof x === 'string' }),
+  rich: (): ContentType => ({
+    name: 'content',
+    placeholder: ContentPlaceholder.rich(),
+    validator: x => typeof x === 'string'
+  }),
   list: ({ elementType }): ContainerType => ({
     name: elementType.name + ' list',
     placeholder: () => [],

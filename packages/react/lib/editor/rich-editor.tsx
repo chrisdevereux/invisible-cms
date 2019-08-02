@@ -4,15 +4,12 @@ import React, { useState, useMemo, createElement, useEffect, useRef } from 'reac
 import Popover from 'react-tiny-popover'
 import { TextRibbon } from '../ui/text-ribbon';
 import {  useDebounce } from '../util';
+import { RichText } from '@invisible-cms/core';
 
 interface RichEditorProps {
   tagName: string
   value: RichText
   onChange: (value: RichText) => void
-}
-
-interface RichText {
-  __html: string
 }
 
 export const RichEditor = ({ value, onChange, tagName, ...wrapperProps }: RichEditorProps) => {

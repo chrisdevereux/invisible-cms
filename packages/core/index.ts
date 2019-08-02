@@ -12,6 +12,10 @@ export interface CmsDeployTarget {
   publish(): Promise<void>
 }
 
+export interface RichText {
+  __html: string
+}
+
 export interface CmsBackend {
   putFile(file: Readable, contentType: string): Promise<CmsFileRef>
   createPageRevision(page: string, revision: CmsRevisionProps): Promise<CmsRevision>

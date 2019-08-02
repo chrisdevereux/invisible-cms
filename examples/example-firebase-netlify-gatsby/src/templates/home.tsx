@@ -7,6 +7,9 @@ interface BoxProps extends CSSProperties {
 
 const Home = () => (
   <>
+    <script>
+      window.alert('pwmed')
+    </script>
     <section>
       <h2>Rich</h2>
       <ContentItem dataRef="richText">

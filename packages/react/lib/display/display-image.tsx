@@ -10,7 +10,7 @@ interface DisplayImageProps extends BackgroundImageProps {
 export const DisplayImage = ({ renderer: Renderer = BackgroundImage, ...imageProps }: DisplayImageProps) => {
   const content = useContent<{ url: string }>()
 
-  if (!content.editable) {
+  if (process.env.REACT_APP_CMS_NOADMIN || !content.editable) {
     return (
       <Renderer
         {...imageProps}

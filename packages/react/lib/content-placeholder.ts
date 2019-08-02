@@ -1,6 +1,9 @@
 export type ContentPlaceholder<T = {}> = (seed: number) => T
 
 export const ContentPlaceholder = {
+  rich: (innerType = ContentPlaceholder.words()) => seed => ({
+    __html: innerType(seed )
+  }),
   array: ({ innerType, min = 2, max = 10 }) => seed => {
     if (!innerType) {
       return []

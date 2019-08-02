@@ -8,7 +8,7 @@ import { GatsbyAppConfig } from "./interfaces";
 declare const INVISIBLE_CMS_AUTH_PROVIDER_PATH: string
 
 export const wrapRootElement = ({ element }, options: GatsbyAppConfig) => {
-  if (process.env.CMS_ADMIN) {
+  if (!process.env.REACT_APP_CMS_NOADMIN) {
     const AuthProvider = getPlugin(require(INVISIBLE_CMS_AUTH_PROVIDER_PATH), INVISIBLE_CMS_AUTH_PROVIDER_PATH)
     const authProvider = new AuthProvider(options)
 
@@ -26,7 +26,7 @@ export const wrapRootElement = ({ element }, options: GatsbyAppConfig) => {
 export const wrapPageElement = ({ element, props }) => {
   const { content, pageId } = props.pageContext
 
-  if (process.env.CMS_ADMIN) {
+  if (!process.env.REACT_APP_CMS_NOADMIN) {
     return (
       <CmsAdminPage pageId={pageId}>
         {element}

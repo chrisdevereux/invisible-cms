@@ -11,9 +11,10 @@ interface ContentItemProps {
   children?: ReactElement
   contentMapper?: ContentMapper
   className?: string
+  editable?: boolean
 }
 
-export const ContentItem = ({ className, dataRef, type, label = type && type.name, children, contentMapper = ContentMapper.identity }: ContentItemProps) => {
+export const ContentItem = ({ className, dataRef, type, editable = true, label = type && type.name, children, contentMapper = ContentMapper.identity }: ContentItemProps) => {
   const parent = useContent<any>()
 
   const parentValue = parent.value || {}
@@ -36,6 +37,7 @@ export const ContentItem = ({ className, dataRef, type, label = type && type.nam
     <div className={className} style={{ position: 'relative' }}>
       <ProvideContent
         {...parent}
+        editable={parent.editable && editable}
         label={label}
         value={contentMapper.map(value || type && placeholderContent(type))}
         onChange={onChange}

@@ -60,7 +60,7 @@ export const onCreateWebpackConfig = ({ actions, plugins }) => {
   actions.setWebpackConfig({
     plugins: [
       plugins.define({
-        'process.env.CMS_ADMIN': JSON.stringify(Boolean(config.admin)),
+        ...config.admin ? {} : { 'process.env.REACT_APP_CMS_NOADMIN': "true" },
         INVISIBLE_CMS_AUTH_PROVIDER_PATH: JSON.stringify(authProviderPath),
       }),
     ],
