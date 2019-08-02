@@ -32,7 +32,7 @@ export const ImageEditor = ({ renderer: Renderer, children, ...wrapperProps }: I
       <input {...dropzone.getInputProps()} />
       {children}
       {
-        content.value.url && (
+        content.value && content.value.url && (
           <ShowOnMouseover>
             <CenterOverParent>
               <EditUiButton translucent>

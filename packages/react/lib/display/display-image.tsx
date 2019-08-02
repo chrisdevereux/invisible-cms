@@ -14,7 +14,7 @@ export const DisplayImage = ({ renderer: Renderer = BackgroundImage, ...imagePro
     return (
       <Renderer
         {...imageProps}
-        src={content.value.url}
+        src={content.value && content.value.url}
       />
     )
   }
