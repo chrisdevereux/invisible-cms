@@ -2,10 +2,7 @@ node_modules
 .env
 .build
 .netlify
-/packages/**/*.js
-/packages/**/*.d.ts
-/packages/**/*.mjs
-/packages/**/*.map
+dist
 *.log
 .cache
 public

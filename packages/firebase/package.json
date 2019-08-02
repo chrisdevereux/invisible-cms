@@ -10,7 +10,6 @@
     "firebase-tools": "^7.1.1",
     "hasha": "^5.0.0",
     "mime-types": "^2.1.24",
-    "react-firebaseui": "^3.1.2",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
@@ -18,10 +17,10 @@
     "@types/uuid": "^3.4.5",
     "firebase": "^6.3.1"
   },
+  "main": "dist/commonjs/index.js",
+  "module": "dist/esnext/index.js",
+  "typings": "dist/esnext/index.d.ts",
   "files": [
-    "*.js",
-    "*.mjs",
-    "*.d.ts",
-    "*.map"
+    "dist"
   ]
 }

@@ -27,8 +27,8 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build": "zsh tasks.zsh build",
-    "clean": "zsh tasks.zsh clean",
+    "build": "lerna exec --no-private -- zsh \\$LERNA_ROOT_PATH/tasks.zsh build",
+    "clean": "lerna exec --no-private -- zsh \\$LERNA_ROOT_PATH/tasks.zsh clean",
     "release": "yarn build && lerna publish"
   }
 }

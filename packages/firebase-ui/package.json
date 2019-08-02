@@ -1,15 +1,15 @@
 {
-  "name": "@invisible-cms/netlify",
+  "name": "@invisible-cms/firebase-ui",
   "publishConfig": {
     "access": "public"
   },
   "version": "0.0.8",
   "dependencies": {
     "@invisible-cms/core": "^0.0.8",
-    "node-fetch": "^2.6.0"
+    "react-firebaseui": "^3.1.2"
   },
   "devDependencies": {
-    "@types/node-fetch": "^2.3.7"
+    "firebase": "^6.3.1"
   },
   "main": "dist/commonjs/index.js",
   "module": "dist/esnext/index.js",

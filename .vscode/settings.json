@@ -1,8 +1,4 @@
 {
   "files.exclude": {
-    "packages/**/*.d.ts": true,
-    "packages/**/*.js": true,
-    "packages/**/*.map": true,
-    "packages/**/*.mjs": true
   }
 }

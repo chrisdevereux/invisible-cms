@@ -16,10 +16,10 @@
     "@types/express": "^4.17.0",
     "@types/multiparty": "^0.0.32"
   },
+  "main": "dist/commonjs/index.js",
+  "module": "dist/esnext/index.js",
+  "typings": "dist/esnext/index.d.ts",
   "files": [
-    "*.js",
-    "*.mjs",
-    "*.d.ts",
-    "*.map"
+    "dist"
   ]
 }

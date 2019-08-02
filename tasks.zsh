@@ -1,21 +1,18 @@
 #!/bin/bash
 
-PATH=./node_modules/.bin:$PATH
-
 function clean() {
-  rm packages/*/*.js
-  rm packages/*/*.mjs
-  rm packages/*/*.map
-  rm packages/*/*.d.ts
-  rm packages/*/lib/**/*.js
-  rm packages/*/lib/**/*.mjs
-  rm packages/*/lib/**/*.map
-  rm packages/*/lib/**/*.d.ts
+  rm -rf dist 2> /dev/null
 }
 
 function build() {
+  pwd
+
   clean
-  tsc --module commonjs
+  tsc --module commonjs --outDir dist/commonjs
+  tsc --module esnext --outDir dist/esnext
+
+  rm -rf dist/**/*.stories.js 2> /dev/null
+  exit 0
 }
 
 "$@"
