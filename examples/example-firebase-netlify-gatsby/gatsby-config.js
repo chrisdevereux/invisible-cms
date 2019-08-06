@@ -8,7 +8,7 @@ module.exports = {
       options: {
         admin: JSON.parse(process.env.CMS_ADMIN || 'false'),
         endpoint: process.env.CMS_ENDPOINT,
-        auth: '@invisible-cms/firebase/auth',
+        auth: '@invisible-cms/firebase-ui',
         signInOptions: [
           firebase.auth.GoogleAuthProvider.PROVIDER_ID,
           firebase.auth.EmailAuthProvider.PROVIDER_ID,

@@ -11,6 +11,7 @@
   "dependencies": {
     "@invisible-cms/express": "^0.1.0",
     "@invisible-cms/firebase": "^0.1.0",
+    "@invisible-cms/firebase-ui": "^0.1.0",
     "@invisible-cms/netlify": "^0.1.0",
     "@invisible-cms/react": "^0.1.0",
     "firebase": "^6.3.1",
