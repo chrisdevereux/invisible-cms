@@ -38,10 +38,14 @@ export class Client {
       method,
       body: isJson ? JSON.stringify(body) : body,
       headers: {
-        'Authorization': 'Bearer ' + this.token,
+        ...this.token ? { 'Authorization': 'Bearer ' + this.token } : undefined,
         ...isJson ? { 'Content-Type': 'application/json'} : undefined,
       }
     })
+
+    if (res.status === 404) {
+      return undefined
+    }
 
     if (!res.ok) {
       throw Error(await res.text())
