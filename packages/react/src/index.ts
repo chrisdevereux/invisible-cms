@@ -1,6 +1,7 @@
 export * from './lib/client'
 export * from './lib/provider'
 export * from './lib/content'
+export * from './lib/resource/resource'
 export * from './lib/content-item'
 export * from './lib/display/display-rich'
 export * from './lib/display/display-image'

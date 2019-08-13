@@ -1,5 +1,8 @@
+require('ts-node').register({ transpileOnly: true })
 require('dotenv').config()
 const firebase = require('firebase')
+
+const { BlogPost, BlogPostComment } = require('./src/resources/post')
 
 module.exports = {
   plugins: [
@@ -24,6 +27,23 @@ module.exports = {
             path: '/other',
             id: 'other',
             component: require.resolve('./src/templates/other.tsx')
+          },
+          {
+            path: '/blog',
+            id: 'blog',
+            component: require.resolve('./src/templates/blog.tsx'),
+            prefetch: [
+              { resource: BlogPost.list },
+            ],
+          },
+          {
+            path: ({ id }) => '/blog/post/' + id,
+            id: 'blog',
+            component: require.resolve('./src/templates/blog-post.tsx'),
+            resource: BlogPost.list,
+            prefetch: [
+              { resource: BlogPostComment.forPost, q: ({ id }) => ({ postId: id }) },
+            ],
           }
         ]
       },

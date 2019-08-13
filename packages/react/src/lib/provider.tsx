@@ -1,5 +1,4 @@
-import { useEffect, useState, useMemo, ReactNode } from "react";
-import React from "react";
+import React, { useEffect, useState, useMemo, ReactNode } from "react";
 import { Client } from "./client";
 import { useAsync } from "./use-async";
 import { GlobalUi } from './global-ui'
@@ -7,6 +6,7 @@ import { ConfigContext, useClient } from "./config";
 import { ProvideContent } from "./content";
 import { CmsAuthProvider } from "@invisible-cms/core";
 import { noop } from "./util";
+import { ResourceCacheProvider } from "./resource";
 
 interface CmsAuthGuardProps {
   authProvider: CmsAuthProvider
@@ -41,22 +41,28 @@ export const CmsAdminApp = ({ authProvider, endpoint, children }: CmsAuthGuardPr
 }
 
 interface CmsDisplayProps {
-  data: {}
+  data?: {}
   children: ReactNode
+  resourceData?: {}
+  rootResourceUrl?: string
 }
 
-export const CmsPage = ({ children, data }: CmsDisplayProps) => (
-  <ProvideContent value={data} editable={false} onChange={noop}>
-    {children}
-  </ProvideContent>
+export const CmsPage = ({ children, rootResourceUrl, data = {}, resourceData = {} }: CmsDisplayProps) => (
+  <ResourceCacheProvider rootResourceUrl={rootResourceUrl} initialData={resourceData}>
+    <ProvideContent value={data} editable={false} onChange={noop}>
+      {children}
+    </ProvideContent>
+  </ResourceCacheProvider>
 )
 
 interface CmsAdminPageProps {
   children: ReactNode
   pageId: string
+  resourceData: {}
+  rootResourceUrl?: string
 }
 
-export const CmsAdminPage = ({ children, pageId }: CmsAdminPageProps) => {
+export const CmsAdminPage = ({ children, rootResourceUrl, pageId, resourceData }: CmsAdminPageProps) => {
   const client = useClient()
   const revision = useAsync(async () => {
     const revision = await client.getPageRevision(pageId)
@@ -82,18 +88,20 @@ export const CmsAdminPage = ({ children, pageId }: CmsAdminPageProps) => {
   }
 
   return (
-    <ProvideContent editable value={editValue || revision.value.content} onChange={setEditValue}>
-      <GlobalUi
-        revision={revision.value}
-        onPublish={async () =>{
-          await save()
-          await client.publish(pageId, revision.value.id)
+    <ResourceCacheProvider rootResourceUrl={rootResourceUrl} initialData={resourceData}>
+      <ProvideContent editable value={editValue || revision.value.content} onChange={setEditValue}>
+        <GlobalUi
+          revision={revision.value}
+          onPublish={async () =>{
+            await save()
+            await client.publish(pageId, revision.value.id)
 
-          revision.value = await client.createPageRevision(pageId, { content: revision.value.content })
-        }}
-        onSave={save}
-      />
-      {children}
-    </ProvideContent>
+            revision.value = await client.createPageRevision(pageId, { content: revision.value.content })
+          }}
+          onSave={save}
+        />
+        {children}
+      </ProvideContent>
+    </ResourceCacheProvider>
   )
 }

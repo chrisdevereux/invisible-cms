@@ -24,18 +24,18 @@ export const wrapRootElement = ({ element }, options: GatsbyAppConfig) => {
 }
 
 export const wrapPageElement = ({ element, props }) => {
-  const { content, pageId } = props.pageContext
+  const { content, pageId, resourceData, resourceUrl } = props.pageContext
 
   if (!process.env.REACT_APP_CMS_NOADMIN) {
     return (
-      <CmsAdminPage pageId={pageId}>
+      <CmsAdminPage rootResourceUrl={resourceUrl} pageId={pageId} resourceData={resourceData}>
         {element}
       </CmsAdminPage>
     )
 
   } else {
     return (
-      <CmsPage data={content}>
+      <CmsPage rootResourceUrl={resourceUrl} data={content} resourceData={resourceData}>
         {element}
       </CmsPage>
     )

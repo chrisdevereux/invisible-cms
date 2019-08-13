@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.3.3",
-    "dotenv": "^8.0.0"
+    "dotenv": "^8.0.0",
+    "ts-node": "^8.3.0"
   }
 }
