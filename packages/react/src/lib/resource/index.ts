@@ -1,3 +1,3 @@
 export { resource, getResource, useResource, usePageResource, useCachedResource, Resource } from './resource'
-export { ResourceCacheProvider } from './resource-cache'
+export { ResourceCacheProvider, MockResourceCache } from './resource-cache'
 
