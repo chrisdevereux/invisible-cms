@@ -1,1 +1,1 @@
-module.exports = require('./dist/commonjs/gatsby-ssr')
+export { wrapPageElement } from './dist/esnext/gatsby-ssr'
