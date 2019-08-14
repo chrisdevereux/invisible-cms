@@ -112,7 +112,7 @@ export const createPages = async ({ actions }: SourceOpts, { endpoint, token, pa
           for (const pageResourceItem of pageResource) {
             createPageForPageDef({
               concretePath: resolvePath(path, { ...q, ...pageResourceItem}),
-              resourceData: { ...pageData, ...pageResourceItem, ...resolveEachPrefetch(prefetch, pageResourceItem) }, 
+              resourceData: { ...pageData, ...pageResourceItem, ...resolveEachPrefetch(prefetch, pageResourceItem) },
               resourceUrl: resource.urlFromData && resource.urlFromData(pageResourceItem)
             })
           }
@@ -128,7 +128,7 @@ export const createPages = async ({ actions }: SourceOpts, { endpoint, token, pa
 
       } else {
         // If page is not backed by a get resource, create a single page
-        createPageForPageDef({ concretePath: resolvePath(path, {}), resourceData: {} })
+        createPageForPageDef({ concretePath: resolvePath(path, {}), resourceData: await resolveEachPrefetch(prefetch) })
       }
     }
 
