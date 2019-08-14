@@ -6,8 +6,6 @@ import { CacheContext, ResourceCache } from './resource-cache'
 import { constant } from 'lodash'
 import { useAsync } from '../use-async';
 
-export  { ResourceCache }
-
 export interface Resource<Q, T> {
   convert: (props: any) => T
   url: (q: Q) => string

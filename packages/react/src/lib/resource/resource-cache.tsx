@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { ReactNode, createContext } from 'react'
+import React, { ReactNode, createContext, PropsWithChildren } from 'react'
+import { fromPairs, compact } from 'lodash';
+import { Resource } from './resource';
 
 export interface ResourceCache extends Map<string, any> {
   offline?: boolean
@@ -28,3 +30,26 @@ export const ResourceCacheProvider = ({
     {children}
   </CacheContext.Provider>
 )
+
+type MockResource<T = {}> = [Resource<{}, T>, T]
+
+interface MockResourceCacheProps {
+  root?: MockResource
+  mocks?: MockResource[]
+}
+
+export const MockResourceCache = ({
+  root,
+  mocks = [],
+  children
+}: PropsWithChildren<MockResourceCacheProps>) => {
+  const mockData = fromPairs(
+    compact([root, ...mocks]).map(([type, data]) => [type.urlFromData(data), data])
+  )
+
+  return (
+    <ResourceCacheProvider offline initialData={mockData} rootResourceUrl={root && root[0].urlFromData(root[1])}>
+      {children}
+    </ResourceCacheProvider>
+  )
+}
