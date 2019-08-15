@@ -31,7 +31,7 @@ export const ResourceCacheProvider = ({
   </CacheContext.Provider>
 )
 
-type MockResource<T = {}> = [Resource<{}, T>, T]
+type MockResource<T = {}, Q = {}> = { resource: Resource<T, Q>, q?: Q, value: T }
 
 interface MockResourceCacheProps {
   root?: MockResource
@@ -44,7 +44,7 @@ export const MockResourceCache = ({
   children
 }: PropsWithChildren<MockResourceCacheProps>) => {
   const mockData = fromPairs(
-    compact([root, ...mocks]).map(([type, data]) => [type.urlFromData(data), data])
+    compact([root, ...mocks]).map(({ value, q = value, resource }) => [resource.urlFromData(q), value])
   )
 
   return (
